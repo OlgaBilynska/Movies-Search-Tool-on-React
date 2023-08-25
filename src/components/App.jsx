@@ -2,6 +2,7 @@ import Home from 'pages/HomePage';
 import MovieDetails from 'pages/MovieDetails';
 import Movies from 'pages/MoviesPage';
 import { NavLink, Route, Routes } from 'react-router-dom';
+// import { ToastContainer } from 'react-toastify';
 
 export const App = () => {
   return (
@@ -21,6 +22,7 @@ export const App = () => {
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:movieId" element={<MovieDetails />} />
       </Routes>
+      {/* <ToastContainer autoClose={3000} /> */}
     </div>
   );
 };

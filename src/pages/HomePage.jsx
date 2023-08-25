@@ -1,24 +1,41 @@
-import { useEffect } from 'react';
-// import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { getMoviesAPI } from 'services/APIservices';
+
+const moviesAPI = getMoviesAPI();
 
 const Home = () => {
-  useEffect(() => {
-    const APIKey = '713e88f7db14c265e0543f2dd0843d0c';
-    const options = {
-      method: 'GET',
-      headers: { accept: 'application/json' },
-    };
+  const [movies, setMovies] = useState([]);
 
-    fetch(
-      `https://${APIKey}.themoviedb.org/3/trending/all/day?language=en-US`,
-      options
-    )
-      .then(response => response.json())
-      .then(response => console.log('r', response))
-      .catch(err => console.error(err));
+  useEffect(() => {
+    moviesAPI
+      .getTrendingMovies()
+      .then(res => {
+        if (res.length === 0) {
+          throw Error();
+        }
+        setMovies(res);
+        return;
+      })
+      .catch(error => console.log(error));
   }, []);
 
-  return <div>Home Page</div>;
+  return (
+    <>
+      <div>Home Page</div>
+
+      <ul>
+        {movies.map(movie => (
+          <li key={movie.id}>
+            <div>{movie.original_title || movie.name}</div>
+            <img
+              alt={movie.original_title || movie.name}
+              src={`http://image.tmdb.org/t/p/w200${movie.poster_path}`}
+            />
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 };
 
 export default Home;
