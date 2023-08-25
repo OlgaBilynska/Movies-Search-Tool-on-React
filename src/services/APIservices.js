@@ -32,7 +32,6 @@ const getMovieBySearch = async query => {
     const result = await axios.get(API_ENDPOINTS.Movie_URL, {
       params: { api_key: API_KEY, language: 'en-US', query },
     });
-    console.log('r', result.data.results);
     return result.data.results;
   } catch (error) {
     Notify.failure('Sorry, something went wrong. Please try again.');
@@ -40,19 +39,23 @@ const getMovieBySearch = async query => {
   }
 };
 
-const getOneMovie = async () => {
+const getOneMovie = async id => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Movie_URL);
+    const result = await axios.get(API_ENDPOINTS.Movie_URL, {
+      params: { api_key: API_KEY, language: 'en-US', id },
+    });
     return result.data;
   } catch (error) {
-    Notify.failure(`Sorry, we can't find any information about this movie :()`);
+    Notify.failure(`Sorry, we can't find any information about this movie :(`);
     throw new Error(error.response.data.message);
   }
 };
 
-const getActors = async () => {
+const getActors = async actorId => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Actors_URL);
+    const result = await axios.get(API_ENDPOINTS.Actors_URL, {
+      params: { api_key: API_KEY, language: 'en-US', actorId },
+    });
     return result.results;
   } catch (error) {
     Notify.failure(`Sorry, we can't find this actor.`);
@@ -60,9 +63,11 @@ const getActors = async () => {
   }
 };
 
-const getReviews = async () => {
+const getReviews = async reviewId => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Reviews_URL);
+    const result = await axios.get(API_ENDPOINTS.Reviews_URL, {
+      params: { api_key: API_KEY, language: 'en-US', reviewId },
+    });
     return result.results;
   } catch (error) {
     Notify.failure(`Sorry, no one has written a review yet.`);

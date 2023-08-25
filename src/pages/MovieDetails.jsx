@@ -1,11 +1,37 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useParams, Outlet } from 'react-router-dom';
+import { getMoviesAPI } from 'services/APIservices';
+
+const movieAPI = getMoviesAPI();
 
 const MovieDetails = () => {
-  useEffect(() => {
-    //http
-  }, []);
+  const [id, setId] = useState('');
 
-  return <div> Movie Details</div>;
+  const { movieId } = useParams();
+
+  //   setId(movieId);
+
+  //   useEffect(
+  //     id => {
+  //       movieAPI.getOneMovie(id).then(res => console.log('id', res));
+  //     },
+  //     [id]
+  //   );
+
+  return (
+    <>
+      <div> Movie Details: {movieId} </div>
+      <ul>
+        <li>
+          <Link to="cast">Actors</Link>
+        </li>
+        <li>
+          <Link to="reviews">Reviews</Link>
+        </li>
+      </ul>
+      <Outlet />
+    </>
+  );
 };
 
 export default MovieDetails;
