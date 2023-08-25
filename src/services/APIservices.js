@@ -44,6 +44,7 @@ const getOneMovie = async id => {
     const result = await axios.get(API_ENDPOINTS.Movie_URL, {
       params: { api_key: API_KEY, language: 'en-US', id },
     });
+    console.log('data', result.data);
     return result.data;
   } catch (error) {
     Notify.failure(`Sorry, we can't find any information about this movie :(`);

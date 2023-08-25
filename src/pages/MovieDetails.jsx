@@ -4,17 +4,14 @@ import { getMoviesAPI } from 'services/APIservices';
 
 const movieAPI = getMoviesAPI();
 
-const MovieDetails = () => {
-  const [id, setId] = useState('');
+export const MovieDetails = () => {
+  const [movie, setMovie] = useState('');
 
   const { movieId } = useParams();
 
-  //   setId(movieId);
-
-  //   useEffect(() => {
-  //     console.log('id', id);
-  //     movieAPI.getOneMovie(id).then(res => console.log('id', res));
-  //   }, [id]);
+  useEffect(() => {
+    movieAPI.getOneMovie(movieId).then(res => setMovie(res));
+  }, [movieId]);
 
   return (
     <>
