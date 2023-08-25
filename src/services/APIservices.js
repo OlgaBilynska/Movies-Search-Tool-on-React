@@ -51,24 +51,25 @@ const getOneMovie = async id => {
   }
 };
 
-const getActors = async actorId => {
+const getActors = async id => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Actors_URL, {
-      params: { api_key: API_KEY, language: 'en-US', actorId },
+    const result = await axios.get(`movie/${id}/credits`, {
+      params: { api_key: API_KEY, language: 'en-US' },
     });
-    return result.results;
+    return result.data.cast;
   } catch (error) {
     Notify.failure(`Sorry, we can't find this actor.`);
     throw new Error(error.response.data.message);
   }
 };
 
-const getReviews = async reviewId => {
+const getReviews = async id => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Reviews_URL, {
-      params: { api_key: API_KEY, language: 'en-US', reviewId },
+    const result = await axios.get(`movie/${id}/reviews`, {
+      params: { api_key: API_KEY, language: 'en-US' },
     });
-    return result.results;
+    console.log('res', result.data.results);
+    return result.data.results;
   } catch (error) {
     Notify.failure(`Sorry, no one has written a review yet.`);
     throw new Error(error.response.data.message);

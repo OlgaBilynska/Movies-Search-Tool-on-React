@@ -11,12 +11,10 @@ const MovieDetails = () => {
 
   //   setId(movieId);
 
-  //   useEffect(
-  //     id => {
-  //       movieAPI.getOneMovie(id).then(res => console.log('id', res));
-  //     },
-  //     [id]
-  //   );
+  //   useEffect(() => {
+  //     console.log('id', id);
+  //     movieAPI.getOneMovie(id).then(res => console.log('id', res));
+  //   }, [id]);
 
   return (
     <>
