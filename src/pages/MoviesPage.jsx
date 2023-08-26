@@ -1,11 +1,15 @@
 import { Notify } from 'notiflix';
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
 import { useDebounce } from 'react-recipes';
 import { Link, useSearchParams } from 'react-router-dom';
+import Card from 'components/Card';
+
 // import { toast } from 'react-toastify';
 
 const moviesAPI = getMoviesAPI();
+// model.id = nanoid();
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -37,10 +41,10 @@ const Movies = () => {
   //     moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
   //   };
 
-  const onMovieClick = e => {
-    // setQuery(e.currentTarget);
-    moviesAPI.getOneMovie(e.currentTarget).then(res => console.log('m', res));
-  };
+  //   const onMovieClick = e => {
+  //     // setQuery(e.currentTarget);
+  //     moviesAPI.getOneMovie(e.currentTarget).then(res => console.log('m', res));
+  //   };
 
   return (
     <>
@@ -58,15 +62,14 @@ const Movies = () => {
         <button type="submit">Search</button>
       </form>
       <ul>
-        {movies.map(movie => (
-          <Link key={movie.id} to={`${movie.id}`} onClick={onMovieClick}>
-            <div>{movie.name || movie.original_title}</div>
-            <img
-              alt={movie.name || movie.original_title}
-              src={`http://image.tmdb.org/t/p/w200${movie.poster_path}`}
-            />
-          </Link>
-        ))}
+        {movies.map(movie => {
+          const idNanoid = nanoid();
+          return (
+            <Link key={idNanoid} to={`${movie.id}`}>
+              <Card movie={movie} />
+            </Link>
+          );
+        })}
       </ul>
     </>
   );

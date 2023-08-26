@@ -41,10 +41,9 @@ const getMovieBySearch = async query => {
 
 const getOneMovie = async id => {
   try {
-    const result = await axios.get(API_ENDPOINTS.Movie_URL, {
-      params: { api_key: API_KEY, language: 'en-US', id },
+    const result = await axios.get(`movie/${id}`, {
+      params: { api_key: API_KEY, language: 'en-US' },
     });
-    console.log('data', result.data);
     return result.data;
   } catch (error) {
     Notify.failure(`Sorry, we can't find any information about this movie :(`);
@@ -69,7 +68,6 @@ const getReviews = async id => {
     const result = await axios.get(`movie/${id}/reviews`, {
       params: { api_key: API_KEY, language: 'en-US' },
     });
-    console.log('res', result.data.results);
     return result.data.results;
   } catch (error) {
     Notify.failure(`Sorry, no one has written a review yet.`);

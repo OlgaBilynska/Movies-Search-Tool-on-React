@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
@@ -9,14 +10,19 @@ export const Reviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    moviesAPI.getReviews(movieId).then(res => setReviews(res));
+    moviesAPI.getReviews(movieId).then(res => {
+      console.log('review', res);
+      setReviews(res);
+    });
   }, [movieId]);
+
+  const idN = nanoid();
 
   return (
     <>
-      <div>Reviews of the movie: {movieId}</div>
+      <div>Reviews of the movie:</div>
       {reviews.map(review => (
-        <li key={review.id}>
+        <li key={idN}>
           <p>{review.content}</p>
         </li>
       ))}

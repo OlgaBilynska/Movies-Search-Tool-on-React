@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
@@ -17,17 +18,22 @@ export const Cast = () => {
 
   return (
     <>
-      <div>Actors of the movie: {movieId}</div>
+      <div>Actors of the movie: </div>
       <ul>
-        {actors.map(actor => (
-          <li key={actor.id}>
-            <div>{actor.name}</div>
-            <img
-              alt={actor.name}
-              src={`http://image.tmdb.org/t/p/w200${actor.profile_path}`}
-            />
-          </li>
-        ))}
+        {actors.map(actor => {
+          const nanoId = nanoid();
+          return (
+            <li key={nanoId}>
+              <div>{actor.name}</div>
+              {actor.profile_path && (
+                <img
+                  alt={actor.name}
+                  src={`http://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                />
+              )}
+            </li>
+          );
+        })}
       </ul>
     </>
   );
