@@ -9,7 +9,6 @@ import Card from 'components/Card';
 // import { toast } from 'react-toastify';
 
 const moviesAPI = getMoviesAPI();
-// model.id = nanoid();
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -41,10 +40,13 @@ const Movies = () => {
   //     moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
   //   };
 
-  //   const onMovieClick = e => {
-  //     // setQuery(e.currentTarget);
-  //     moviesAPI.getOneMovie(e.currentTarget).then(res => console.log('m', res));
-  //   };
+  const updateQueryString = e => {
+    const movieIdValue = e.target.value;
+    if (movieIdValue === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ query: movieIdValue });
+  };
 
   return (
     <>
@@ -57,7 +59,7 @@ const Movies = () => {
           autoFocus
           placeholder="Search movies here"
           value={query}
-          onChange={e => setSearchParams({ query: e.target.value })}
+          onChange={updateQueryString}
         />
         <button type="submit">Search</button>
       </form>
