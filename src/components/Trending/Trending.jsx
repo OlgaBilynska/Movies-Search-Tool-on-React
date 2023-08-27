@@ -6,6 +6,7 @@ import { getMoviesAPI } from 'services/APIservices';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import Loader from '../Loader/Loader';
+import { TrendingList } from './Trending.styled';
 
 const moviesAPI = getMoviesAPI();
 
@@ -57,7 +58,7 @@ const Trending = () => {
 
   return (
     <>
-      <ul>
+      <TrendingList>
         {movies.map(movie => {
           const nanoId = nanoid();
           return (
@@ -66,7 +67,7 @@ const Trending = () => {
             </Link>
           );
         })}
-      </ul>
+      </TrendingList>
     </>
   );
 };

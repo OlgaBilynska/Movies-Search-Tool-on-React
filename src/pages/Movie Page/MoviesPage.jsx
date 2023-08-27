@@ -5,6 +5,15 @@ import { getMoviesAPI } from 'services/APIservices';
 import { useDebounce } from 'react-recipes';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import Card from 'components/Card/Card';
+import {
+  MovieContainer,
+  MovieSearchEls,
+  FindMovieText,
+  FindForm,
+  FindInput,
+  FindBtn,
+  MovieResultCont,
+} from './MoviePage.styled';
 
 // import { toast } from 'react-toastify';
 
@@ -12,9 +21,6 @@ const moviesAPI = getMoviesAPI();
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  //   const [query, setQuery] = useState('');
-  //   const [status, setStatus] = useState('idle');
-  //   const [page, setPage] = useState(1);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -23,8 +29,6 @@ const Movies = () => {
   const location = useLocation();
 
   useEffect(() => {
-    //   setPage(1);
-    //   setStatus('pending');
     moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
   }, [query, debouncedQuery]);
 
@@ -36,39 +40,34 @@ const Movies = () => {
       return Notify.info('🦄 Please type a movie name.');
     }
     setSearchParams({ query: movieIdValue });
-    // moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
   };
-
-  //   const handleQueryChange = e => {
-  //     setQuery(e.target.value.toLowerCase());
-  //     moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
-  //   };
 
   const updateQueryString = e => {
     const movieIdValue = e.target.value;
     if (movieIdValue.trim() === '') {
       return setSearchParams({});
     }
-    // setQuery(e.target.value.toLowerCase());
     setSearchParams({ query: movieIdValue });
   };
 
   return (
-    <>
-      <div>Find your favorite movie</div>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          name="query"
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search movies here"
-          value={query}
-          onChange={updateQueryString}
-        />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
+    <MovieContainer>
+      <MovieSearchEls>
+        <FindMovieText>FIND YOUR FAVORITE MOVIE</FindMovieText>
+        <FindForm onSubmit={handleFormSubmit}>
+          <FindInput
+            name="query"
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search movies here"
+            value={query}
+            onChange={updateQueryString}
+          />
+          <FindBtn type="submit">Search</FindBtn>
+        </FindForm>
+      </MovieSearchEls>
+      <MovieResultCont>
         {movies.map(movie => {
           const idNanoid = nanoid();
           return (
@@ -77,8 +76,8 @@ const Movies = () => {
             </Link>
           );
         })}
-      </ul>
-    </>
+      </MovieResultCont>
+    </MovieContainer>
   );
 };
 
