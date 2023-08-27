@@ -16,8 +16,10 @@ import {
   DetailedBtn,
   DetailedCard,
   DetImageWrapper,
+  ImageTemplate,
 } from './MovieDetails.styled';
 import { LiaBackwardSolid } from 'react-icons/lia';
+import { BiMoviePlay } from 'react-icons/bi';
 import Loader from 'components/Loader/Loader';
 
 const movieAPI = getMoviesAPI();
@@ -33,6 +35,7 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     movieAPI.getOneMovie(movieId).then(res => {
+      console.log('r', res);
       setMovie(res);
     });
   }, [movieId]);
@@ -44,6 +47,8 @@ export const MovieDetails = () => {
   const getYear = date => date.split('-')[0];
 
   const { release_date } = movie;
+
+  console.log('mP', movie.poster_path);
 
   return (
     <DetailContainer>
@@ -58,11 +63,13 @@ export const MovieDetails = () => {
 
       <DetailedCard>
         <DetImageWrapper>
-          {movie.poster_path && (
+          {movie.poster_path ? (
             <DetailedImg
               src={`http://image.tmdb.org/t/p/w200${movie.poster_path}`}
               alt={movie.original_title || movie.name}
             />
+          ) : (
+            <ImageTemplate />
           )}
         </DetImageWrapper>
 

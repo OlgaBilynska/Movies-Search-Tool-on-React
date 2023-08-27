@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { BiMoviePlay } from 'react-icons/bi';
 
 export const DetailContainer = styled.main`
   padding: 30px 30px;
@@ -25,6 +26,11 @@ export const BackBtn = styled(Link)`
     color: var(--background);
     transform: scale(1.1);
   }
+`;
+
+export const ImageTemplate = styled(BiMoviePlay)`
+  width: 200px;
+  height: 300px;
 `;
 
 export const DetailedContent = styled.div`
