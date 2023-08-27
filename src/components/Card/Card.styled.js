@@ -11,11 +11,12 @@ export const CardContainer = styled.div`
   box-shadow: 2px 2px 3px 1.5px var(--background);
   outline: none;
   padding: 10px;
+  height: 340px;
 
   background-color: var(--button);
   color: var(--light);
 
-  transition: transform 250ms ease-in-out;
+  transition: transform5 250ms ease-in-out;
 
   &:hover,
   &:focus {

@@ -39,7 +39,7 @@ export const Footer = styled.footer`
   background-color: var(--button);
   color: var(--light);
   font-size: 14px;
-  background: linear-gradient(180deg, var(--text) 40%, var(--background) 100%);
+  background: linear-gradient(180deg, var(--text) 20%, var(--background) 100%);
 `;
 
 export const SubscribeFooter = styled.form`

@@ -1,7 +1,14 @@
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
+import {
+  ReviewHeading,
+  ReviewItem,
+  ReviewContainer,
+  ReviewIcon,
+} from './Reviews.styled';
 
 const moviesAPI = getMoviesAPI();
 
@@ -11,6 +18,10 @@ const Reviews = () => {
 
   useEffect(() => {
     moviesAPI.getReviews(movieId).then(res => {
+      if (res.length === 0) {
+        Notify.info(`Sorry, there're no reviews yet`);
+      }
+
       setReviews(res);
     });
   }, [movieId]);
@@ -19,12 +30,19 @@ const Reviews = () => {
 
   return (
     <>
-      <div>Reviews of the movie:</div>
-      {reviews.map(review => (
-        <li key={idN}>
-          <p>{review.content}</p>
-        </li>
-      ))}
+      <ReviewHeading>Reviews of the movie:</ReviewHeading>
+      <ReviewContainer>
+        {reviews.length === 0 ? (
+          <div>Sorry, we didn't find any reviews of this movie.</div>
+        ) : (
+          reviews.map(review => (
+            <ReviewItem key={idN}>
+              <ReviewIcon />
+              {<ReviewContainer>{review.content}</ReviewContainer>}
+            </ReviewItem>
+          ))
+        )}
+      </ReviewContainer>
     </>
   );
 };

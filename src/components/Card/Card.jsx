@@ -1,4 +1,3 @@
-// import { BsFileImage } from 'react-icons/bs';
 import { CardContainer, CardTitle, ImageTemplate } from './Card.styled';
 
 const Card = ({ movie }) => {

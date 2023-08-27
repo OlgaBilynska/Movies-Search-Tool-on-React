@@ -7,4 +7,10 @@ export const TrendingList = styled.ul`
   gap: 30px;
 
   padding: 20px 30px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 `;

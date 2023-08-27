@@ -14,6 +14,8 @@ import {
   DetailedGenres,
   MoreDetails,
   DetailedBtn,
+  DetailedCard,
+  DetImageWrapper,
 } from './MovieDetails.styled';
 import { LiaBackwardSolid } from 'react-icons/lia';
 import Loader from 'components/Loader/Loader';
@@ -51,45 +53,50 @@ export const MovieDetails = () => {
         <span>Back to movies</span>
       </BackBtn>
 
-      <DetailedContent>
-        <DetailedHeading>
-          {movie.original_title || movie.name} ({getYear(String(release_date))})
-        </DetailedHeading>
+      <DetailedHeading>
+        {movie.original_title || movie.name} ({getYear(String(release_date))})
+      </DetailedHeading>
 
-        {movie.poster_path && (
-          <DetailedImg
-            src={`http://image.tmdb.org/t/p/w200${movie.poster_path}`}
-            alt={movie.original_title || movie.name}
-          />
-        )}
+      <DetailedCard>
+        <DetImageWrapper>
+          {movie.poster_path && (
+            <DetailedImg
+              src={`http://image.tmdb.org/t/p/w200${movie.poster_path}`}
+              alt={movie.original_title || movie.name}
+            />
+          )}
+        </DetImageWrapper>
 
-        <DetailedRating>
-          Rating: {roundedRating(Number(movie.vote_average))}
-        </DetailedRating>
+        <DetailedContent>
+          <DetailedRating>
+            Rating: {roundedRating(Number(movie.vote_average))}
+          </DetailedRating>
 
-        <DetailedSecHeading>Overview</DetailedSecHeading>
-        <DetailedText>{movie.overview}</DetailedText>
-        <DetailedSecHeading>Genres</DetailedSecHeading>
-        <DetailedGenres>
-          {movie.genres &&
-            movie['genres'].map(genre => {
-              const genreId = nanoid();
-              return <li key={genreId}>{genre.name}</li>;
-            })}
-        </DetailedGenres>
+          <DetailedSecHeading>Overview</DetailedSecHeading>
+          <DetailedText>{movie.overview}</DetailedText>
+          <DetailedSecHeading>Genres</DetailedSecHeading>
+          <DetailedGenres>
+            {movie.genres &&
+              movie['genres'].map(genre => {
+                const genreId = nanoid();
+                return <li key={genreId}>{genre.name}</li>;
+              })}
+          </DetailedGenres>
+        </DetailedContent>
+      </DetailedCard>
 
-        <MoreDetails>
-          <DetailedBtn key="cast">
-            <Link to="cast">Actors</Link>
-          </DetailedBtn>
-          <DetailedBtn key="reviews">
-            <Link to="reviews">Reviews</Link>
-          </DetailedBtn>
-        </MoreDetails>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
-      </DetailedContent>
+      <MoreDetails>
+        <DetailedBtn key="cast">
+          <Link to="cast">Actors</Link>
+        </DetailedBtn>
+        <DetailedBtn key="reviews">
+          <Link to="reviews">Reviews</Link>
+        </DetailedBtn>
+      </MoreDetails>
+
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </DetailContainer>
   );
 };

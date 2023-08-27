@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 
 export const HomeHeading = styled.h1`
-  /* display: inline; */
   align-self: center;
   padding: 30px 30px;
-  margin: 0 auto;
+  margin: 30px auto;
   border: 0.5px solid var(--background);
 
   text-align: center;

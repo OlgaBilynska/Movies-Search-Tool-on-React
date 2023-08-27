@@ -31,12 +31,41 @@ export const DetailedContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (min-width: 768px) {
+    align-items: baseline;
+  }
 `;
 
-export const DetailedHeading = styled.h1`
+export const DetailedCard = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 50px;
+  }
+`;
+
+export const DetImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    min-width: 200px;
+  }
+`;
+
+export const DetailedHeading = styled.div`
   font-size: 30px;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 `;
 
 export const DetailedRating = styled.div`
@@ -49,6 +78,11 @@ export const DetailedImg = styled.img`
 
 export const DetailedSecHeading = styled.h2`
   margin-bottom: 15px;
+
+  @media screen and (min-width: 768px) {
+    display: inline;
+    text-align: start;
+  }
 `;
 
 export const DetailedText = styled.div`
@@ -57,10 +91,15 @@ export const DetailedText = styled.div`
 
 export const DetailedGenres = styled.ul`
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  justify-content: space-around;
 
   margin-bottom: 30px;
+
+  @media screen and (min-width: 768px) {
+    justify-content: flex-start;
+    gap: 10px;
+  }
 `;
 
 export const MoreDetails = styled.ul`
@@ -69,6 +108,11 @@ export const MoreDetails = styled.ul`
   justify-content: space-around;
 
   margin-bottom: 30px;
+
+  @media screen and (min-width: 768px) {
+    justify-content: start;
+    gap: 50px;
+  }
 `;
 
 export const DetailedBtn = styled.li`

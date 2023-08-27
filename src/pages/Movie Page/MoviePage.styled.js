@@ -9,6 +9,7 @@ export const MovieSearchEls = styled.div`
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  margin-bottom: 30px;
 `;
 
 export const FindMovieText = styled.div`
@@ -59,4 +60,10 @@ export const MovieResultCont = styled.ul`
   gap: 30px;
 
   padding: 20px 30px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 `;
