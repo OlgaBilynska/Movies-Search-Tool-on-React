@@ -33,7 +33,6 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     movieAPI.getOneMovie(movieId).then(res => {
-      console.log('movie', res);
       setMovie(res);
     });
   }, [movieId]);
