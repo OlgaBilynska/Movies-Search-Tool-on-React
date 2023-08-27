@@ -5,13 +5,12 @@ import { getMoviesAPI } from 'services/APIservices';
 
 const moviesAPI = getMoviesAPI();
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
 
   useEffect(() => {
     moviesAPI.getReviews(movieId).then(res => {
-      console.log('review', res);
       setReviews(res);
     });
   }, [movieId]);
@@ -29,3 +28,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

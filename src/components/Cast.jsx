@@ -5,7 +5,7 @@ import { getMoviesAPI } from 'services/APIservices';
 
 const movieAPI = getMoviesAPI();
 
-export const Cast = () => {
+const Cast = () => {
   const [actors, setActors] = useState([]);
   const { movieId } = useParams();
 
@@ -38,3 +38,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;

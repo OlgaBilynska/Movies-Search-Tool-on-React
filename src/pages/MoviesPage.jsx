@@ -1,9 +1,9 @@
 import { Notify } from 'notiflix';
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
 import { useDebounce } from 'react-recipes';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import Card from 'components/Card';
 
 // import { toast } from 'react-toastify';
@@ -20,19 +20,23 @@ const Movies = () => {
   const query = searchParams.get('query') ?? '';
   const debouncedQuery = useDebounce(query, 250);
 
-  //   useEffect(() => {
-  //     setPage(1);
-  //     setStatus('pending');
-  //     moviesAPI.getMovieBySearch().then(res => console.log('r', res));
-  //   }, [query]);
+  const location = useLocation();
+
+  useEffect(() => {
+    //   setPage(1);
+    //   setStatus('pending');
+    moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
+  }, [query, debouncedQuery]);
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    if (query.trim() === '') {
+    const movieIdValue = e.target.query.value;
+
+    if (movieIdValue === '') {
       return Notify.info('🦄 Please type a movie name.');
     }
-    setSearchParams(query);
-    moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
+    setSearchParams({ query: movieIdValue });
+    // moviesAPI.getMovieBySearch(debouncedQuery).then(res => setMovies(res));
   };
 
   //   const handleQueryChange = e => {
@@ -42,9 +46,10 @@ const Movies = () => {
 
   const updateQueryString = e => {
     const movieIdValue = e.target.value;
-    if (movieIdValue === '') {
+    if (movieIdValue.trim() === '') {
       return setSearchParams({});
     }
+    // setQuery(e.target.value.toLowerCase());
     setSearchParams({ query: movieIdValue });
   };
 
@@ -67,7 +72,7 @@ const Movies = () => {
         {movies.map(movie => {
           const idNanoid = nanoid();
           return (
-            <Link key={idNanoid} to={`${movie.id}`}>
+            <Link key={idNanoid} to={`${movie.id}`} state={{ from: location }}>
               <Card movie={movie} />
             </Link>
           );

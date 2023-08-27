@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import { useState, useEffect } from 'react';
-import { Link, useParams, Outlet } from 'react-router-dom';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import { getMoviesAPI } from 'services/APIservices';
 
 const movieAPI = getMoviesAPI();
@@ -10,6 +10,10 @@ export const MovieDetails = () => {
 
   const { movieId } = useParams();
 
+  const location = useLocation();
+
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+
   useEffect(() => {
     movieAPI.getOneMovie(movieId).then(res => {
       console.log('movie', res);
@@ -17,10 +21,24 @@ export const MovieDetails = () => {
     });
   }, [movieId]);
 
+  const roundedRating = value => {
+    return value.toFixed(1);
+  };
+
+  const getYear = date => date.split('-')[0];
+
+  const { release_date } = movie;
+
   return (
     <>
       <div> Movie Details</div>
-      <h1> {movie.original_title || movie.name} </h1>
+      <Link to={backLinkLocationRef.current}>Back to movies</Link>
+      <h1>
+        {' '}
+        {movie.original_title || movie.name} ({getYear(String(release_date))})
+      </h1>
+
+      <div>Rating: {roundedRating(Number(movie.vote_average))}</div>
 
       {movie.poster_path && (
         <img
@@ -47,7 +65,9 @@ export const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading the subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

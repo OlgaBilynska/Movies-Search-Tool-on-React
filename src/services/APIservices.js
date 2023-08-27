@@ -30,7 +30,7 @@ const getTrendingMovies = async () => {
 const getMovieBySearch = async query => {
   try {
     const result = await axios.get(API_ENDPOINTS.Movie_URL, {
-      params: { api_key: API_KEY, language: 'en-US', query },
+      params: { api_key: API_KEY, language: 'en-US', query: query },
     });
     return result.data.results;
   } catch (error) {
