@@ -58,7 +58,9 @@ const getActors = async id => {
     });
     return result.data.cast;
   } catch (error) {
-    Notify.failure(`Sorry, we can't find this actor.`);
+    Notify.failure(
+      `Sorry, we can't find information about actors of this movie.`
+    );
     throw new Error(error.response.data.message);
   }
 };
