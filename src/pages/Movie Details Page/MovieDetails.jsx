@@ -19,7 +19,6 @@ import {
   ImageTemplate,
 } from './MovieDetails.styled';
 import { LiaBackwardSolid } from 'react-icons/lia';
-import { BiMoviePlay } from 'react-icons/bi';
 import Loader from 'components/Loader/Loader';
 
 const movieAPI = getMoviesAPI();
