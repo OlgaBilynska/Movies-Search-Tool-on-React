@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
 import { useDebounce } from 'react-recipes';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import Card from 'components/Card';
+import Card from 'components/Card/Card';
 
 // import { toast } from 'react-toastify';
 

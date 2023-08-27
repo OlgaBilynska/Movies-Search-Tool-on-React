@@ -1,4 +1,4 @@
-import Trending from 'components/Trending';
+import Trending from 'components/Trending/Trending';
 
 const Home = () => {
   return (

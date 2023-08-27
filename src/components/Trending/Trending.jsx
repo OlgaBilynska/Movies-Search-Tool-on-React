@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import { getMoviesAPI } from 'services/APIservices';
 import { Link } from 'react-router-dom';
-import Card from './Card';
-import Loader from './Loader';
+import Card from '../Card/Card';
+import Loader from '../Loader/Loader';
 
 const moviesAPI = getMoviesAPI();
 
