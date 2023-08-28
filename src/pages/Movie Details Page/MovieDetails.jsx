@@ -53,7 +53,7 @@ export const MovieDetails = () => {
     <DetailContainer>
       <BackBtn to={backLinkLocationRef.current}>
         <LiaBackwardSolid />
-        <span>Back to movies</span>
+        <span>Back</span>
       </BackBtn>
 
       <DetailedHeading>
